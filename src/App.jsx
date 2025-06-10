@@ -42,7 +42,7 @@ function App() {
           <Route path="/epharmacy" element={
             <ProtectedRoutes>
               <Layout>
-                  <ePharmacy />
+                  <EPharmacy />
               </Layout>
             </ProtectedRoutes>
           } />

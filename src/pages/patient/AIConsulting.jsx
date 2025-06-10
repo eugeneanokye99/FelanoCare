@@ -58,7 +58,7 @@ export default function AIConsulting() {
     setMessages([
       {
         id: 1,
-        text: `Welcome, Dr. ${userData?.name || ''}! I'm FelanoCareAI, your advanced medical assistant. How can I assist you today?\n\nI can help with:\n\n• Symptom analysis and differential diagnosis\n• Evidence-based treatment recommendations\n• Drug interaction checks\n• Medical literature summaries\n• Clinical decision support\n\nPlease describe your patient case or medical query in detail.`,
+        text: `Welcome, ${userData?.name || ''}! I'm FelanoCareAI, your advanced medical assistant. How can I assist you today?\n\nI can help with:\n\n• Symptom analysis and differential diagnosis\n• Evidence-based treatment recommendations\n• Drug interaction checks\n• Medical literature summaries\n• Clinical decision support\n\nPlease describe your patient case or medical query in detail.`,
         sender: 'ai',
         timestamp: new Date().toISOString()
       }
