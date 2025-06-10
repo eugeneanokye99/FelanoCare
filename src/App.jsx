@@ -8,7 +8,7 @@ import ProtectedRoutes from './components/ProtectedRoutes';
 import NotFound from './pages/NotFound';
 import Layout from './components/Layout';
 import AIConsulting from './pages/patient/AIConsulting';
-import EPharmacy from './pages/patient/EPharmacy';
+import Pharmacy from './pages/patient/Pharmacy';
 import BookAppointment from './pages/patient/BookAppointment';
 import Dietetics from './pages/patient/Dietetics';
 import MentalHealth from './pages/patient/MentalHealth';
@@ -42,7 +42,7 @@ function App() {
           <Route path="/epharmacy" element={
             <ProtectedRoutes>
               <Layout>
-                  <EPharmacy />
+                  <Pharmacy />
               </Layout>
             </ProtectedRoutes>
           } />

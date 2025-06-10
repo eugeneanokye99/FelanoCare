@@ -34,7 +34,7 @@ import {
     },
   ];
   
-  export default function EPharmacy() {
+  export default function Pharmacy() {
     const [cartItems, setCartItems] = useState([]);
     const [addingId, setAddingId] = useState(null);
     const navigate = useNavigate();
@@ -136,10 +136,7 @@ import {
           ))}
         </div>
   
-        {/* Footer */}
-        <footer className="p-6 text-center text-sm text-gray-400">
-          © {new Date().getFullYear()} FelanoCare e-Pharmacy. All rights reserved.
-        </footer>
+
       </div>
     );
   }
