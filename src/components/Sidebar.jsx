@@ -59,8 +59,7 @@ export default function Sidebar() {
                 <NavItem to="/epharmacy" icon="document-text" text="E-pharmacy" />
                 <NavItem to="/dietetics" icon="document-text" text="Dietetics" />
                 <NavItem to="/psychology" icon="document-text" text="Psychology & Mental Health" />
-                <NavItem to="/herbal" icon="users" text="Herbal Medicine" />
-                <NavItem to="/ai-consult" icon="user" text="AI Consulting" />
+                <NavItem to="/ai-consult" icon="users" text="AI Consulting" />
                 <NavItem to="/profile" icon="user" text="Profile" />
               </>
             )}

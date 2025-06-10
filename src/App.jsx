@@ -8,11 +8,10 @@ import ProtectedRoutes from './components/ProtectedRoutes';
 import NotFound from './pages/NotFound';
 import Layout from './components/Layout';
 import AIConsulting from './pages/patient/AIConsulting';
-import EPharmacy from './pages/patient/EPharmacy';
+import ePharmacy from './pages/patient/ePharmacy';
 import BookAppointment from './pages/patient/BookAppointment';
 import Dietetics from './pages/patient/Dietetics';
 import MentalHealth from './pages/patient/MentalHealth';
-import HerbalMedicine from './pages/patient/HerbalMedicine';
 import Profile from './pages/patient/Profile';
 import Cart from './pages/patient/Cart';
 import EditProfile from './pages/patient/EditProfile';
@@ -43,7 +42,7 @@ function App() {
           <Route path="/epharmacy" element={
             <ProtectedRoutes>
               <Layout>
-                  <EPharmacy />
+                  <ePharmacy />
               </Layout>
             </ProtectedRoutes>
           } />
@@ -65,13 +64,6 @@ function App() {
             <ProtectedRoutes>
               <Layout>
                   <MentalHealth />
-              </Layout>
-            </ProtectedRoutes>
-          } />
-          <Route path="/herbal" element={
-            <ProtectedRoutes>
-              <Layout>
-                  <HerbalMedicine />
               </Layout>
             </ProtectedRoutes>
           } />
