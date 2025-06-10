@@ -81,7 +81,7 @@ function App() {
               </Layout>
             </ProtectedRoutes>
           } />
-          <Route path="/edit" element={
+          <Route path="/edit-profile" element={
             <ProtectedRoutes>
               <Layout>
                   <EditProfile />
