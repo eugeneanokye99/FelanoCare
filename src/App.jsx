@@ -8,7 +8,7 @@ import ProtectedRoutes from './components/ProtectedRoutes';
 import NotFound from './pages/NotFound';
 import Layout from './components/Layout';
 import AIConsulting from './pages/patient/AIConsulting';
-import ePharmacy from './pages/patient/ePharmacy';
+import EPharmacy from './pages/patient/EPharmacy';
 import BookAppointment from './pages/patient/BookAppointment';
 import Dietetics from './pages/patient/Dietetics';
 import MentalHealth from './pages/patient/MentalHealth';
