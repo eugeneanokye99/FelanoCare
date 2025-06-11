@@ -92,7 +92,7 @@ export default function AIConsulting() {
     try {
       const prompt = `
       You are FelanoCareAI, a professional medical assistant for doctors.
-      The user is Dr. ${userData?.name || 'a physician'} seeking clinical guidance.
+      The user is ${userData?.name || 'a physician'} seeking clinical guidance.
       
       Current conversation context:
       ${messages.slice(-3).map(m => `${m.sender}: ${m.text}`).join('\n')}
