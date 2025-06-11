@@ -1,4 +1,12 @@
 import { useAuth } from '../../contexts/AuthContext';
+import { useEffect, useState } from 'react';
+import { db } from '../../firebase';
+import {
+  collection,
+  query,
+  where,
+  onSnapshot
+} from 'firebase/firestore';
 import {
   CalendarDays,
   Pill,
@@ -8,21 +16,57 @@ import {
   Stethoscope,
   Droplet,
   Brain,
-  CalendarCheck,
+  CalendarCheck
 } from 'lucide-react';
 
 export default function PatientDashboard() {
-  const { userData } = useAuth();
+  const { currentUser, userData } = useAuth();
+  const [appointments, setAppointments] = useState([]);
+  const [prescriptions, setPrescriptions] = useState([]);
+  const [healthPlans, setHealthPlans] = useState([]);
+
+  useEffect(() => {
+    if (!currentUser) return;
+
+    const appointmentsQuery = query(
+      collection(db, 'appointments'),
+      where('patientId', '==', currentUser.uid)
+    );
+    const unsubscribeAppointments = onSnapshot(appointmentsQuery, (snapshot) => {
+      setAppointments(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+    });
+
+    const prescriptionsQuery = query(
+      collection(db, 'prescriptions'),
+      where('patientId', '==', currentUser.uid),
+      where('status', '==', 'active')
+    );
+    const unsubscribePrescriptions = onSnapshot(prescriptionsQuery, (snapshot) => {
+      setPrescriptions(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+    });
+
+    const healthPlansQuery = query(
+      collection(db, 'healthPlans'),
+      where('patientId', '==', currentUser.uid)
+    );
+    const unsubscribePlans = onSnapshot(healthPlansQuery, (snapshot) => {
+      setHealthPlans(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+    });
+
+    return () => {
+      unsubscribeAppointments();
+      unsubscribePrescriptions();
+      unsubscribePlans();
+    };
+  }, [currentUser]);
 
   return (
     <div className="min-h-screen bg-gray-100 py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        {/* Header */}
         <h1 className="text-3xl font-bold text-gray-800 mb-6">
           Welcome, {userData?.name}
         </h1>
 
-        {/* Analytics Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
           <div className="bg-white rounded-2xl shadow p-5 flex items-center space-x-4">
             <div className="bg-indigo-100 p-3 rounded-full">
@@ -30,7 +74,7 @@ export default function PatientDashboard() {
             </div>
             <div>
               <p className="text-sm text-gray-500">Appointments</p>
-              <p className="text-xl font-semibold text-gray-800">3</p>
+              <p className="text-xl font-semibold text-gray-800">{appointments.length}</p>
             </div>
           </div>
 
@@ -40,7 +84,7 @@ export default function PatientDashboard() {
             </div>
             <div>
               <p className="text-sm text-gray-500">Medications</p>
-              <p className="text-xl font-semibold text-gray-800">5 Active</p>
+              <p className="text-xl font-semibold text-gray-800">{prescriptions.length} Active</p>
             </div>
           </div>
 
@@ -60,14 +104,12 @@ export default function PatientDashboard() {
             </div>
             <div>
               <p className="text-sm text-gray-500">Health Plans</p>
-              <p className="text-xl font-semibold text-gray-800">2 Active</p>
+              <p className="text-xl font-semibold text-gray-800">{healthPlans.length} Active</p>
             </div>
           </div>
         </div>
 
-        {/* Two Column Content */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Upcoming Appointments */}
           <div className="bg-white rounded-2xl shadow p-6">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-semibold text-gray-800 flex items-center gap-2">
@@ -77,24 +119,20 @@ export default function PatientDashboard() {
               <a href="/booking" className="text-sm text-indigo-600 hover:underline">View all</a>
             </div>
             <ul className="space-y-4">
-              <li className="flex justify-between items-center">
-                <div>
-                  <p className="font-medium text-gray-700">Dr. Sarah Johnson</p>
-                  <p className="text-sm text-gray-500">June 12, 2025 · 10:00 AM</p>
-                </div>
-                <span className="text-sm bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full">Confirmed</span>
-              </li>
-              <li className="flex justify-between items-center">
-                <div>
-                  <p className="font-medium text-gray-700">Dr. Kelvin Ayew</p>
-                  <p className="text-sm text-gray-500">June 15, 2025 · 1:30 PM</p>
-                </div>
-                <span className="text-sm bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full">Pending</span>
-              </li>
+              {appointments.slice(0, 2).map((appt) => (
+                <li key={appt.id} className="flex justify-between items-center">
+                  <div>
+                    <p className="font-medium text-gray-700">{appt.doctorName}</p>
+                    <p className="text-sm text-gray-500">{new Date(appt.date).toLocaleDateString()} · {appt.time}</p>
+                  </div>
+                  <span className="text-sm bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full">
+                    {appt.status}
+                  </span>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* AI Tips or Announcements */}
           <div className="bg-white rounded-2xl shadow p-6">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-semibold text-gray-800 flex items-center gap-2">
