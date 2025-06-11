@@ -15,6 +15,11 @@ import MentalHealth from './pages/patient/MentalHealth';
 import Profile from './pages/patient/Profile';
 import Cart from './pages/patient/Cart';
 import EditProfile from './pages/patient/EditProfile';
+import Appointments from './pages/doctor/Appointments';
+import Patients from './pages/doctor/Patients';
+import DoctorProfile from './pages/doctor/Profile';
+import Prescriptions from './pages/doctor/Prescriptions';
+
 
 function App() {
   return (
@@ -95,6 +100,34 @@ function App() {
             <ProtectedRoutes>
               <Layout>
                 <DoctorDashboard />
+              </Layout>
+            </ProtectedRoutes>
+          } />
+          <Route path="/prescriptions" element={
+            <ProtectedRoutes>
+              <Layout>
+                <Prescriptions />
+              </Layout>
+            </ProtectedRoutes>
+          } />
+          <Route path="/appointments" element={
+            <ProtectedRoutes>
+              <Layout>
+                <Appointments />
+              </Layout>
+            </ProtectedRoutes>
+          } />
+          <Route path="/patients" element={
+            <ProtectedRoutes>
+              <Layout>
+                <Patients />
+              </Layout>
+            </ProtectedRoutes>
+          } />
+          <Route path="/profile" element={
+            <ProtectedRoutes>
+              <Layout>
+                <DoctorProfile />
               </Layout>
             </ProtectedRoutes>
           } />
